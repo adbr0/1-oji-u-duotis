@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <ctime>
 
 struct studentas {
 
@@ -45,7 +46,8 @@ void nuskaitymas(std::vector<studentas>&grupe, std::ifstream& failas){
 
 int main()
 {
-   std::vector<studentas> grupe;
+        std::srand(std::time(nullptr));
+        std::vector<studentas> grupe;
         int pasirinkimas;
 
         std::cout << "\nPasirinkite duomenu ivedimo buda:\n";
@@ -104,14 +106,8 @@ int main()
         studentas A;
         std::cout<<"Iveskite per tarpa studento varda ir pavarde: ";
         std::cin>>A.vardas>>A.pavarde;
-        int skaicius;
-        do{
-            std::cout<<"Iveskite kiek studento pazymiu sugeneruoti: "; std::cin>>skaicius;
-            if(skaicius<=0){
-                std::cout << "Klaida. Turi buti sugeneruotas bent vienas pazymys.\n";
-            }
-        }
-        while (skaicius <= 0);
+        int skaicius = std::rand()%8+3;
+
         for(int i=0; i<skaicius; i++)
         {
             int pazymys;
