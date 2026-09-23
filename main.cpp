@@ -22,8 +22,8 @@ void nuskaitymas(std::vector<studentas>&grupe, std::ifstream& failas){
     {
         std::istringstream iss(eilute);
         studentas A;
-        iss>>A.vardas;
         iss>>A.pavarde;
+        iss>>A.vardas;
         std::vector<int> skaiciai;
         int skaicius;
         while(iss>>skaicius)
@@ -73,7 +73,7 @@ int main()
 
         {
         while(true){
-        int l; char klausimas;
+        int l;
         std::cout<<"Iveskite namu darbu pazymi : ";
         std::cin>>l;
 
@@ -85,20 +85,33 @@ int main()
         }
         A.pazymys.push_back(l);
 
+        char klausimas;
         std::cout<<"Ar studentas dar turi pazymiu? (t/n) "; std::cin>>klausimas;
         if (klausimas == 'n' || klausimas == 'N') {
             break;
             }
         }
+
         std::cout<<"Iveskite studento egzamino rezultata: "; std::cin>>A.egzaminas;
+        while (std::cin.fail() || A.egzaminas < 1 || A.egzaminas > 10) {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "Neteisingas pazymys. Iveskite skaiciu nuo 1 iki 10: ";
+                std::cin >> A.egzaminas;
+}
 
     } grupe.push_back(A);
     char klausimas;
-    std::cout<<"Ar dar yra studentu? (t/n) "; std::cin>>klausimas;
-    if(klausimas =='n' || klausimas=='N')
-    {
-        break;
-        }
+    while (true) {
+    std::cout << "Ar studentas dar turi pazymiu? (t/n): ";
+    std::cin >> klausimas;
+
+    if (klausimas == 't' || klausimas == 'T') break;
+
+    if (klausimas == 'n' || klausimas == 'N') break;
+    std::cout << "Neteisingas pasirinkimas. Iveskite t arba n.\n";
+    }
+    if(klausimas =='n' || klausimas=='N') break;
     }
 }
     else if(pasirinkimas==2){
@@ -116,12 +129,16 @@ int main()
         }
         A.egzaminas=std::rand()%10+1;
         grupe.push_back(A);
+
         char klausimas;
-        std::cout<<"Ar dar yra studentu (t/n) "; std::cin>>klausimas;
-        if(klausimas=='n' || klausimas == 'N')
-       {
-           break;
-       }
+        while (true) {
+        std::cout << "Ar studentas dar turi pazymiu? (t/n): ";
+        std::cin >> klausimas;
+        if (klausimas == 't' || klausimas == 'T') break;
+        if (klausimas == 'n' || klausimas == 'N') break;
+        std::cout << "Neteisingas pasirinkimas. Iveskite t arba n.\n";
+    }
+        if(klausimas=='n' || klausimas == 'N') break;
     }
 }
     else if (pasirinkimas ==3)
@@ -134,6 +151,7 @@ int main()
         nuskaitymas(grupe, failas);
         failas.close();
     }
+
     std::sort(grupe.begin(), grupe.end(), [] (const studentas&a, const studentas&b){return a.pavarde < b.pavarde;});
     std::cout << std::left<< std::setw(15) << "Pavarde"<< std::setw(15) << "Vardas" << std::setw(20) << "Galutinis (Vid.)" << std::setw(20) << "Galutinis (Med.)" << "\n";
 
