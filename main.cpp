@@ -20,20 +20,34 @@ int main()
 
         std::cout<<"Iveskite per tarpa studento varda ir pavarde: ";
         std::cin>>A.vardas>>A.pavarde;
-
+        char k;
+        std::cout<<"Ar norite ivesti pazymius ranka? (t/n)"; std::cin>>k;
+        if(k=='t' || k=='T')
+    {
         while(true){
         int l; char klausimas;
-
         std::cout<<"Iveskite namu darbu pazymi :"; std::cin>>l;
         A.pazymys.push_back(l);
 
         std::cout<<"Ar studentas dar turi pazymiu? (t/n) "; std::cin>>klausimas;
         if (klausimas == 'n' || klausimas == 'N') {
             break;
-        }
+            }
         }
         std::cout<<"Iveskite studento egzamino rezultata: "; std::cin>>A.egzaminas;
+    }
+    else if(k=='n' || k=='N'){
+        int skaicius;
+        std::cout<<"Iveskite kiek studento pazymiu sugeneruoti: "; std::cin>>skaicius;
+        for(int i=0; i<skaicius; i++)
+        {
+            int pazymys;
+            pazymys=std::rand()%10+1;
+            A.pazymys.push_back(pazymys);
+        }
+        A.egzaminas=std::rand()%10+1;
 
+    }
         grupe.push_back(A);
 
         char klausimas;
