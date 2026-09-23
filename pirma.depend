@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1790165679 source:c:\users\adelina b\desktop\pirma_uzd\main.cpp
+1790178744 source:c:\users\adelina b\desktop\pirma_uzd\main.cpp
 	<iostream>
 	<vector>
 	<iomanip>
 	<string>
 	<algorithm>
+	<fstream>
+	<sstream>
 

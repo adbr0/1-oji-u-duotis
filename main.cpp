@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <sstream>
 
 struct studentas {
 
@@ -13,6 +14,11 @@ struct studentas {
 };
 void nuskaitymas(std::vector<studentas>&grupe){
     std::ifstream failas("kursiokai.txt");
+     if(!failas)
+    {
+        std::cout<<"Nepavyko atidaryti failo\n";
+        return;
+    }
     std::string eilute;
     std::getline(failas,eilute);
     while(std::getline(failas, eilute))
@@ -21,7 +27,6 @@ void nuskaitymas(std::vector<studentas>&grupe){
         studentas A;
         iss>>A.vardas;
         iss>>A.pavarde;
-
         std::vector<int> skaiciai;
         int skaicius;
         while(iss>>skaicius)
@@ -34,25 +39,19 @@ void nuskaitymas(std::vector<studentas>&grupe){
             continue;
         }
         A.egzaminas=skaiciai.back();
-        for(int i; i<skaiciai.size()-1;i++)
+        for(int i=0; i<skaiciai.size()-1;i++)
         {
             A.pazymys.push_back(skaiciai[i]);
         }
         grupe.push_back(A);
     }
 
-    if(!failas)
-    {
-        std::cout<<"Nepavyko atidaryti failo\n";
-        return;
-    }
+
 }
 
 int main()
 {
    std::vector<studentas> grupe;
-
-   while(true){
         int pasirinkimas;
 
         std::cout << "\nPasirinkite duomenu ivedimo buda:\n";
@@ -61,11 +60,21 @@ int main()
         std::cout << "3 Nuskaityti duomenis is failo\n";
         std::cout << "Pasirinkimas: ";
         std::cin >> pasirinkimas;
+        while(pasirinkimas<1 || pasirinkimas>3)
+        {
+            std::cout<<"Neteisingas pasirinkimas\n";
+            std::cout << "Naujas pasirinkimas: "; std::cin >> pasirinkimas;
+
+        }
+
         if(pasirinkimas==1)
     {
-        studentas A;
+        while(true)
+        {
+            studentas A;
         std::cout<<"Iveskite per tarpa studento varda ir pavarde: ";
         std::cin>>A.vardas>>A.pavarde;
+
         {
         while(true){
         int l; char klausimas;
@@ -88,8 +97,16 @@ int main()
         std::cout<<"Iveskite studento egzamino rezultata: "; std::cin>>A.egzaminas;
 
     } grupe.push_back(A);
+    char klausimas;
+    std::cout<<"Ar dar yra studentu? (t/n) "; std::cin>>klausimas;
+    if(klausimas =='n' || klausimas=='N')
+    {
+        break;
+        }
+    }
 }
     else if(pasirinkimas==2){
+    while(true){
         studentas A;
         std::cout<<"Iveskite per tarpa studento varda ir pavarde: ";
         std::cin>>A.vardas>>A.pavarde;
@@ -101,7 +118,6 @@ int main()
             }
         }
         while (skaicius <= 0);
-
         for(int i=0; i<skaicius; i++)
         {
             int pazymys;
@@ -110,23 +126,18 @@ int main()
         }
         A.egzaminas=std::rand()%10+1;
         grupe.push_back(A);
-
+        char klausimas;
+        std::cout<<"Ar dar yra studentu (t/n) "; std::cin>>klausimas;
+        if(klausimas=='n' || klausimas == 'N')
+       {
+           break;
+       }
     }
+}
     else if (pasirinkimas ==3)
     {
       nuskaitymas(grupe);
     }
-    else{
-        std::cout<<"Neteisingas pasirinkimas\n";
-        continue;
-    }
-
-        char klausimas;
-        std::cout<<"Ar dar yra studentu? (t/n) "; std::cin>>klausimas;
-        if (klausimas == 'n' || klausimas == 'N') {
-        break;
-        }
-   }
 
     char klausimas;
     std::cout<<"Skaiciuoti studento vidurki (t/n)?"; std::cin>>klausimas;
