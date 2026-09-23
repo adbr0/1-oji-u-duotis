@@ -14,7 +14,7 @@ struct studentas {
     int egzaminas;
 };
 
-void nuskaitymas(std::vector<studentas>&grupe, std::ifstream& failas){
+void nuskaitymas(std::vector<studentas>&grupe, std::ifstream&failas){
 
     std::string eilute;
     std::getline(failas,eilute);
@@ -22,8 +22,11 @@ void nuskaitymas(std::vector<studentas>&grupe, std::ifstream& failas){
     {
         std::istringstream iss(eilute);
         studentas A;
-        iss>>A.pavarde;
-        iss>>A.vardas;
+        if (!(iss >> A.vardas >> A.pavarde))
+            {
+            std::cout << "Klaidinga eilute: " << eilute << "\n";
+            continue;
+            }
         std::vector<int> skaiciai;
         int skaicius;
         while(iss>>skaicius)
@@ -63,7 +66,7 @@ int main()
 
         }
 
-        if(pasirinkimas==1)
+        if(pasirinkimas == 1)
     {
         while(true)
         {
@@ -71,7 +74,7 @@ int main()
         std::cout<<"Iveskite per tarpa studento varda ir pavarde: ";
         std::cin>>A.vardas>>A.pavarde;
 
-        {
+
         while(true){
         int l;
         std::cout<<"Iveskite namu darbu pazymi : ";
@@ -86,11 +89,17 @@ int main()
         A.pazymys.push_back(l);
 
         char klausimas;
-        std::cout<<"Ar studentas dar turi pazymiu? (t/n) "; std::cin>>klausimas;
-        if (klausimas == 'n' || klausimas == 'N') {
-            break;
-            }
+        while (true) {
+        std::cout << "Ar studentas dar turi pazymiu? (t/n): ";
+        std::cin >> klausimas;
+        if (klausimas == 't' || klausimas == 'T') break;
+
+        if (klausimas == 'n' || klausimas == 'N') break;
+        std::cout << "Neteisingas pasirinkimas. Iveskite t arba n.\n";
         }
+        if(klausimas == 'n' || klausimas== 'N') break;
+        }
+
 
         std::cout<<"Iveskite studento egzamino rezultata: "; std::cin>>A.egzaminas;
         while (std::cin.fail() || A.egzaminas < 1 || A.egzaminas > 10) {
@@ -98,41 +107,38 @@ int main()
                 std::cin.ignore(1000, '\n');
                 std::cout << "Neteisingas pazymys. Iveskite skaiciu nuo 1 iki 10: ";
                 std::cin >> A.egzaminas;
-}
-
-    } grupe.push_back(A);
+} grupe.push_back(A);
     char klausimas;
     while (true) {
-    std::cout << "Ar studentas dar turi pazymiu? (t/n): ";
+    std::cout << "Ar dar yra studentu? (t/n): ";
     std::cin >> klausimas;
-
     if (klausimas == 't' || klausimas == 'T') break;
 
     if (klausimas == 'n' || klausimas == 'N') break;
     std::cout << "Neteisingas pasirinkimas. Iveskite t arba n.\n";
     }
-    if(klausimas =='n' || klausimas=='N') break;
+    if(klausimas == 'n' || klausimas== 'N') break;
     }
 }
-    else if(pasirinkimas==2){
+    else if(pasirinkimas == 2){
     while(true){
         studentas A;
         std::cout<<"Iveskite per tarpa studento varda ir pavarde: ";
         std::cin>>A.vardas>>A.pavarde;
-        int skaicius = std::rand()%8+3;
+        int skaicius = std::rand()%8 +3;
 
         for(int i=0; i<skaicius; i++)
         {
             int pazymys;
-            pazymys=std::rand()%10+1;
+            pazymys=std::rand()%10 +1;
             A.pazymys.push_back(pazymys);
         }
-        A.egzaminas=std::rand()%10+1;
+        A.egzaminas=std::rand()%10 +1;
         grupe.push_back(A);
 
         char klausimas;
         while (true) {
-        std::cout << "Ar studentas dar turi pazymiu? (t/n): ";
+        std::cout << "Ar dar yra studentu? (t/n): ";
         std::cin >> klausimas;
         if (klausimas == 't' || klausimas == 'T') break;
         if (klausimas == 'n' || klausimas == 'N') break;
@@ -141,9 +147,11 @@ int main()
         if(klausimas=='n' || klausimas == 'N') break;
     }
 }
-    else if (pasirinkimas ==3)
+    else if (pasirinkimas == 3)
     {
-        std::ifstream failas("kursiokai.txt");
+        std::string pavadinimas;
+        std::cout<<"Iveskite failo pavadinima su .txt: "; std::cin>>pavadinimas;
+        std::ifstream failas(pavadinimas);
         if (!failas) {
         std::cout << "Nepavyko atidaryti failo\n";
         return 1;
@@ -165,7 +173,7 @@ int main()
         double mediana;
         std::sort(B.pazymys.begin(),B.pazymys.end());
 
-        if (B.pazymys.size()%2==0){
+        if (B.pazymys.size()%2 == 0){
             mediana=(B.pazymys[B.pazymys.size()/2-1]+B.pazymys[B.pazymys.size()/2])/2.0;
         }
         else{

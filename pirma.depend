@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1790181454 source:c:\users\adelina b\desktop\pirma_uzd\main.cpp
+1790188775 source:c:\users\adelina b\desktop\pirma_uzd\main.cpp
 	<iostream>
 	<vector>
 	<iomanip>
@@ -7,4 +7,5 @@
 	<algorithm>
 	<fstream>
 	<sstream>
+	<ctime>
 
