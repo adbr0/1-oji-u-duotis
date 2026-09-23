@@ -12,6 +12,7 @@ struct studentas {
     std::vector<int> pazymys;
     int egzaminas;
 };
+
 void nuskaitymas(std::vector<studentas>&grupe, std::ifstream& failas){
 
     std::string eilute;
@@ -40,8 +41,6 @@ void nuskaitymas(std::vector<studentas>&grupe, std::ifstream& failas){
         }
         grupe.push_back(A);
     }
-
-
 }
 
 int main()
@@ -135,13 +134,11 @@ int main()
         if (!failas) {
         std::cout << "Nepavyko atidaryti failo\n";
         return 1;
+        }
+        nuskaitymas(grupe, failas);
+        failas.close();
     }
-
-    nuskaitymas(grupe, failas);
-
-    failas.close();
-    }
-
+    std::sort(grupe.begin(), grupe.end(), [] (const studentas&a, const studentas&b){return a.pavarde < b.pavarde;});
     char klausimas;
     std::cout<<"Skaiciuoti studento vidurki (t/n)?"; std::cin>>klausimas;
 
