@@ -139,16 +139,9 @@ int main()
         failas.close();
     }
     std::sort(grupe.begin(), grupe.end(), [] (const studentas&a, const studentas&b){return a.pavarde < b.pavarde;});
-    std::cout << "" << std::left<< std::setw(10) << "Pavarde" <<""
-    <<std::left<< std::setw(10) << "Vardas" << "";
+    std::cout << std::left<< std::setw(15) << "Pavarde"<< std::setw(15) << "Vardas" << std::setw(20) << "Galutinis (Vid.)" << std::setw(20) << "Galutinis (Med.)" << "\n";
 
-     {
-        std::cout << std::right << std::setw(5) << "Galutinis (Med.)" << "\n";
-    }
-    {
-        std::cout << std::right << std::setw(5) << "Galutinis (Vid.)" << "\n";
-    }
-    for(int i = 0; i < 34; i++) {
+    for(int i = 0; i < 70; i++) {
     std::cout << "-";
     }
     std::cout << "\n";
@@ -170,7 +163,7 @@ int main()
         for (int pazymys : B.pazymys){bendras += pazymys;}
         galutinisv = 0.4 * (bendras / B.pazymys.size()) + 0.6 * B.egzaminas;
 
-        std::cout << std::left << std::setw(10) << B.pavarde << std::setw(10)
-        << B.vardas << std::fixed << std::setprecision(2) << galutinisv <<""<<galutinism << "\n";
+        std::cout << std::left << std::setw(15) << B.pavarde << std::setw(15)
+        << B.vardas << std::fixed << std::setprecision(2) << std::setw(20) << galutinisv << std::setw(20) <<galutinism << "\n";
     }
 }
