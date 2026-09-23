@@ -12,13 +12,8 @@ struct studentas {
     std::vector<int> pazymys;
     int egzaminas;
 };
-void nuskaitymas(std::vector<studentas>&grupe){
-    std::ifstream failas("kursiokai.txt");
-     if(!failas)
-    {
-        std::cout<<"Nepavyko atidaryti failo\n";
-        return;
-    }
+void nuskaitymas(std::vector<studentas>&grupe, std::ifstream& failas){
+
     std::string eilute;
     std::getline(failas,eilute);
     while(std::getline(failas, eilute))
@@ -33,7 +28,7 @@ void nuskaitymas(std::vector<studentas>&grupe){
         {
             skaiciai.push_back(skaicius);
         }
-        if (skaiciai.empty())
+        if (skaiciai.size() < 2)
         {
             std::cout<<"Klaidinga eilute: "<< eilute <<"\n";
             continue;
@@ -136,7 +131,15 @@ int main()
 }
     else if (pasirinkimas ==3)
     {
-      nuskaitymas(grupe);
+        std::ifstream failas("kursiokai.txt");
+        if (!failas) {
+        std::cout << "Nepavyko atidaryti failo\n";
+        return 1;
+    }
+
+    nuskaitymas(grupe, failas);
+
+    failas.close();
     }
 
     char klausimas;
