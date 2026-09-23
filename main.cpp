@@ -21,12 +21,20 @@ int main()
         std::cout<<"Iveskite per tarpa studento varda ir pavarde: ";
         std::cin>>A.vardas>>A.pavarde;
         char k;
-        std::cout<<"Ar norite ivesti pazymius ranka? (t/n)"; std::cin>>k;
+        std::cout<<"Ar norite ivesti pazymius ranka? (t/n) "; std::cin>>k;
         if(k=='t' || k=='T')
     {
         while(true){
         int l; char klausimas;
-        std::cout<<"Iveskite namu darbu pazymi :"; std::cin>>l;
+        std::cout<<"Iveskite namu darbu pazymi : ";
+        std::cin>>l;
+
+        while (std::cin.fail() || l < 1 || l > 10) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            std::cout << "Neteisingas pazymys. Iveskite skaiciu nuo 1 iki 10: ";
+            std::cin >> l;
+        }
         A.pazymys.push_back(l);
 
         std::cout<<"Ar studentas dar turi pazymiu? (t/n) "; std::cin>>klausimas;
@@ -38,7 +46,14 @@ int main()
     }
     else if(k=='n' || k=='N'){
         int skaicius;
-        std::cout<<"Iveskite kiek studento pazymiu sugeneruoti: "; std::cin>>skaicius;
+        do{
+            std::cout<<"Iveskite kiek studento pazymiu sugeneruoti: "; std::cin>>skaicius;
+            if(skaicius<=0){
+                std::cout << "Klaida. Turi buti sugeneruotas bent vienas pazymys.\n";
+            }
+        }
+        while (skaicius <= 0);
+
         for(int i=0; i<skaicius; i++)
         {
             int pazymys;
