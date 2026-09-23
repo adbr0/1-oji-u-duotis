@@ -139,16 +139,13 @@ int main()
         failas.close();
     }
     std::sort(grupe.begin(), grupe.end(), [] (const studentas&a, const studentas&b){return a.pavarde < b.pavarde;});
-    char klausimas;
-    std::cout<<"Skaiciuoti studento vidurki (t/n)?"; std::cin>>klausimas;
-
     std::cout << "" << std::left<< std::setw(10) << "Pavarde" <<""
     <<std::left<< std::setw(10) << "Vardas" << "";
 
-    if (klausimas == 'n' || klausimas == 'N') {
+     {
         std::cout << std::right << std::setw(5) << "Galutinis (Med.)" << "\n";
     }
-    else{
+    {
         std::cout << std::right << std::setw(5) << "Galutinis (Vid.)" << "\n";
     }
     for(int i = 0; i < 34; i++) {
@@ -168,20 +165,12 @@ int main()
             mediana=B.pazymys[B.pazymys.size()/2];
         }
 
-        double galutinis;
-
-        if(klausimas=='n' || klausimas=='N')
-        {
-            galutinis=0.4*mediana+0.6*B.egzaminas;
-        }
-        else {
-
-            double bendras = 0;
-            for (int pazymys : B.pazymys){bendras += pazymys;}
-            galutinis = 0.4 * (bendras / B.pazymys.size()) + 0.6 * B.egzaminas;
-        }
+        double galutinism, galutinisv, bendras=0;
+        galutinism=0.4*mediana+0.6*B.egzaminas;
+        for (int pazymys : B.pazymys){bendras += pazymys;}
+        galutinisv = 0.4 * (bendras / B.pazymys.size()) + 0.6 * B.egzaminas;
 
         std::cout << std::left << std::setw(10) << B.pavarde << std::setw(10)
-        << B.vardas << std::fixed << std::setprecision(2) << galutinis << "\n";
+        << B.vardas << std::fixed << std::setprecision(2) << galutinisv <<""<<galutinism << "\n";
     }
 }
